@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.*;
 
+import static java.util.Collections.max;
+import static java.util.Collections.min;
+
 class DataProject {
      static void fun1(ArrayList<HashMap<String, String>> finallist1) {
 
@@ -48,35 +51,52 @@ class DataProject {
           h1.remove("");
           System.out.println(h1);
           //System.out.println(h1.values());
+
+
       }
 
-      static void fun3(ArrayList<HashMap<String, String>> finallist2)
+      static void fun3(ArrayList<HashMap<String, String>> finallist2,ArrayList<HashMap<String, String>> finallist1)
       {
 
-          HashMap<String, Integer> h1 = new HashMap<>();
-          for (int i = 0; i < finallist2.size(); i++) {
-              String looser = finallist2.get(i).get("bowling_team");
-              String runs=finallist2.get(i).get("extra_runs");
-              //  String year = date.substring(0, 4);
-              int c = Integer.parseInt(runs);
-              if (h1.containsKey(looser)) {
-                  h1.replace(looser, h1.get(looser) + c);
-              }
-              if (!h1.containsKey(looser)) {
+          List<String> id= new ArrayList<>();
 
-                  h1.put(looser, c);
+            for(int i=0;i<finallist1.size();i++)
+            {
+                String seasons = finallist1.get(i).get("season");
+                if(seasons.equals("2016"))
+                {
+
+                    id.add(finallist1.get(i).get("id"));;
+                }
+            }
+            //System.out.println(id);
+          HashMap<String, Integer> h1 = new HashMap<>();
+            //int a=min(id),b=max(id);
+            //System.out.println(a+" "+b);
+         System.out.println(id);
+
+          for (int i = 0; i <finallist2.size(); i++) {
+
+              String id_cur = finallist2.get(i).get("match_id");
+              if (id.contains(id_cur)) {
+                  String looser = finallist2.get(i).get("bowling_team");
+                  String runs = finallist2.get(i).get("extra_runs");
+                  int c = Integer.parseInt(runs);
+                  if (h1.containsKey(looser)) {
+                      h1.replace(looser, h1.get(looser) + c);
+                  }
+                  if (!h1.containsKey(looser)) {
+
+                      h1.put(looser, c);
+                  }
               }
           }
-          h1.remove("");
-          System.out.println(h1);
-          //System.out.println(h1.values());
+             // h1.remove("");
+              System.out.println(h1);
+          }
 
-
-      //    System.out.println(finallist2);
-      }
-
-      static void fun4() {
-
+      static void fun4(ArrayList<HashMap<String, String>> finallist2,ArrayList<HashMap<String, String>> finallist1) {
+          String id[] = new String[]{};
       }
 
 
@@ -92,7 +112,7 @@ class DataProject {
         System.out.println("5. To exit");
         int aa1;
         Scanner scanner= new Scanner(System.in);
-        aa1=scanner.nextInt();
+       aa1=scanner.nextInt();
         String filename = "/root/Downloads/Compressed/matches.csv";
         FileReader fileReader = new FileReader(filename);
         String filename1 = "/root/Downloads/Compressed/deliveries.csv";
@@ -104,7 +124,7 @@ class DataProject {
         ArrayList<HashMap<String, String>> finallist2 = new ArrayList<>();
         ArrayList<HashMap<String, String>> finallist1 = new ArrayList<>();
         int x = Data.size();
-        int y= Data.size();
+        int y= Data1.size();
         int a = 1;
         String[] keys = Data.get(0);
         String[] keys1= Data1.get(0);
@@ -118,17 +138,18 @@ class DataProject {
             finallist1.add(hashMap);
             a++;
         }
-    a=1;
-        while (a != y) {
-            String[] row = Data1.get(a);
+        for(String[] row : Data1)
+        {
             int keyarg = 0;
             HashMap<String, String> hashMap = new HashMap<>();
             for (String cell : row) {
                 hashMap.put(keys1[keyarg++], cell);
+                // System.out.println(cell);
             }
             finallist2.add(hashMap);
-            a++;
+
         }
+System.out.println(finallist2.size());
 
         switch (aa1)
         {
@@ -139,10 +160,10 @@ class DataProject {
                 fun2(finallist1);
                 break;
             case 3:
-                fun3(finallist2);
+                fun3(finallist2,finallist1);
                 break;
             case 4:
-                fun4();
+                fun4(finallist2,finallist1);
                 break;
             case 5:
                 break;
@@ -151,6 +172,8 @@ class DataProject {
         }
 
     }
+
+
 
 
     }

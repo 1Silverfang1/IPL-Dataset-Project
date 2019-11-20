@@ -49,8 +49,24 @@ class DataProject {
           //System.out.println(h1.values());
       }
 
-      static void fun3() {
+      static void fun3(ArrayList<HashMap<String, String>> finallist1) {
+          HashMap<String, Integer> h1 = new HashMap<>();
+          for (int i = 0; i < finallist1.size(); i++) {
+              String runs = finallist1.get(i).get("win_by_runs");
+              String winner=finallist1.get(i).get("winner");
+              //  String year = date.substring(0, 4);
+              int c = Integer.parseInt(runs);
+              if (h1.containsKey(winner)) {
+                  h1.replace(winner, h1.get(winner) + c);
+              }
+              if (!h1.containsKey(winner)) {
 
+                  h1.put(winner, c);
+              }
+          }
+          h1.remove("");
+          System.out.println(h1);
+          //System.out.println(h1.values());
       }
 
       static void fun4() {
@@ -101,7 +117,7 @@ class DataProject {
                 fun2(finallist1);
                 break;
             case 3:
-                fun3();
+                fun3(finallist1);
                 break;
             case 4:
                 fun4();

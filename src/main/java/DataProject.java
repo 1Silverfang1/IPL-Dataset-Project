@@ -29,8 +29,24 @@ class DataProject {
       }
 
 
-      static void fun2() {
+      static void fun2(ArrayList<HashMap<String, String>> finallist1) {
 
+          HashMap<String, Integer> h1 = new HashMap<>();
+          for (int i = 0; i < finallist1.size(); i++) {
+              String winner = finallist1.get(i).get("winner");
+              //  String year = date.substring(0, 4);
+              int c = 0;
+              if (h1.containsKey(winner)) {
+                  h1.replace(winner, h1.get(winner) + 1);
+              }
+              if (!h1.containsKey(winner)) {
+
+                  h1.put(winner, 1);
+              }
+          }
+          h1.remove("");
+          System.out.println(h1);
+          //System.out.println(h1.values());
       }
 
       static void fun3() {
@@ -82,7 +98,7 @@ class DataProject {
                 fun1(finallist1);
                 break;
             case 2:
-                fun2();
+                fun2(finallist1);
                 break;
             case 3:
                 fun3();

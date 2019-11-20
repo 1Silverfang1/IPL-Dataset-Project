@@ -13,7 +13,30 @@ import static java.util.Collections.max;
 import static java.util.Collections.min;
 
 class DataProject {
-     static void fun1(ArrayList<HashMap<String, String>> finallist1) {
+    public static HashMap<String, Float> sortByValue(HashMap<String, Float> hm)
+    {
+        // Create a list from elements of HashMap
+        List<Map.Entry<String, Float> > list =
+                new LinkedList<Map.Entry<String, Float> >(hm.entrySet());
+
+        // Sort the list
+        Collections.sort(list, new Comparator<Map.Entry<String, Float> >() {
+            public int compare(Map.Entry<String, Float> o1,
+                               Map.Entry<String, Float> o2)
+            {
+                return (o2.getValue()).compareTo(o1.getValue());
+            }
+        });
+
+        // put data from sorted list to hashmap
+        HashMap<String, Float> temp = new LinkedHashMap<String, Float>();
+        for (Map.Entry<String, Float> aa : list) {
+            temp.put(aa.getKey(), aa.getValue());
+        }
+        return temp;
+    }
+
+    static void fun1(ArrayList<HashMap<String, String>> finallist1) {
 
 
           HashMap<String, Integer> h1 = new HashMap<>();
@@ -73,7 +96,7 @@ class DataProject {
           HashMap<String, Integer> h1 = new HashMap<>();
             //int a=min(id),b=max(id);
             //System.out.println(a+" "+b);
-         System.out.println(id);
+     //    System.out.println(id);
 
           for (int i = 0; i <finallist2.size(); i++) {
 
@@ -96,9 +119,83 @@ class DataProject {
           }
 
       static void fun4(ArrayList<HashMap<String, String>> finallist2,ArrayList<HashMap<String, String>> finallist1) {
-          String id[] = new String[]{};
+        List<String> l1 = new ArrayList<>();
+         for(int i=0;i<finallist1.size();i++)
+        {
+            if("2015".equals(finallist1.get(i).get("season")))
+            {
+                l1.add(finallist1.get(i).get("id"));
+            }
+        }
+        // System.out.println(l1);
+         HashMap<String,Integer> map1= new HashMap<>();
+         HashMap<String,Integer> map2= new HashMap<>();
+         for(int i=0;i<finallist2.size();i++)
+         {
+             if(l1.contains(finallist2.get(i).get("match_id")))
+             {
+                 String bowler= finallist2.get(i).get("bowler");
+                 int run =Integer.parseInt( finallist2.get(i).get("total_runs"));
+                 if(map1.containsKey(bowler))
+                 {
+                     map1.replace(bowler,map1.get(bowler)+run);
+                     map2.replace(bowler,map2.get(bowler)+1);
+                 }
+                 if(!map1.containsKey(bowler))
+                 {
+                     map1.put(bowler,run);
+                     map2.put(bowler,1);
+                 }
+             }
+         }
+         System.out.println("Total Runs given by Bowler in 2015");
+          System.out.println(map1);
+          System.out.println("Total Ball delivered by Bowlers");
+          System.out.println(map2);
+         List<Integer> balls = new ArrayList<>();
+         for( int x : map2.values())
+         {
+             balls.add(x);
+         }
+         int a=0;
+         Map<String,Float> map3= new HashMap<>();
+          for (Map.Entry<String,Integer> entry : map1.entrySet())
+          {
+              String name= entry.getKey();
+              int runs= entry.getValue();
+              float r= entry.getValue();
+              r/=balls.get(a++);
+              map3.put(name,r);
+          }
+          System.out.println("Economical values of bowler order in 2015");
+          Map<String,Float> map4= sortByValue((HashMap<String, Float>) map3);
+          System.out.println(map4);
+      //   System.out.println(map2);
       }
+    static  void fun5(ArrayList<HashMap<String, String>> finallist2,ArrayList<HashMap<String, String>> finallist1)
+    {
+        HashMap<String, Integer> h1 = new HashMap<>();
+        for (int i = 0; i < finallist1.size(); i++)
+        {
+            if ("2016".equals(finallist1.get(i).get("season")))
+            {
+                String winner = finallist1.get(i).get("winner");
+                //  String year = date.substring(0, 4);
+                int c = Integer.parseInt(finallist1.get(i).get("win_by_runs"));
+                if (h1.containsKey(winner)) {
+                    h1.replace(winner, h1.get(winner) + c);
+                }
+                if (!h1.containsKey(winner)) {
 
+                    h1.put(winner, c);
+                }
+            }
+        }
+        h1.remove("");
+        System.out.println(h1);
+
+
+    }
 
     public static void main(String[] args) throws IOException, CsvException {
 
@@ -109,7 +206,8 @@ class DataProject {
         System.out.println("2. Number of matches won of all teams over all the years of IPL.");
         System.out.println("3. For the year 2016 get the extra runs conceded per team.");
         System.out.println("4. For the year 2015 get the top economical bowlers.");
-        System.out.println("5. To exit");
+        System.out.println("5. For the year 2016, get the win by run per team");
+        System.out.println("6. To exit");
         int aa1;
         Scanner scanner= new Scanner(System.in);
        aa1=scanner.nextInt();
@@ -149,7 +247,7 @@ class DataProject {
             finallist2.add(hashMap);
 
         }
-System.out.println(finallist2.size());
+//System.out.println(finallist2.size());
 
         switch (aa1)
         {
@@ -166,7 +264,10 @@ System.out.println(finallist2.size());
                 fun4(finallist2,finallist1);
                 break;
             case 5:
+                fun5(finallist2,finallist1);
                 break;
+            case  6:
+                return;
             default:
                 System.out.println("You Entered a wrong choice");
         }

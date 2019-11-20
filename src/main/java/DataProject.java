@@ -6,6 +6,7 @@ import com.sun.org.apache.xpath.internal.objects.XString;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.*;
 
 class DataProject {
@@ -49,24 +50,29 @@ class DataProject {
           //System.out.println(h1.values());
       }
 
-      static void fun3(ArrayList<HashMap<String, String>> finallist1) {
+      static void fun3(ArrayList<HashMap<String, String>> finallist2)
+      {
+
           HashMap<String, Integer> h1 = new HashMap<>();
-          for (int i = 0; i < finallist1.size(); i++) {
-              String runs = finallist1.get(i).get("win_by_runs");
-              String winner=finallist1.get(i).get("winner");
+          for (int i = 0; i < finallist2.size(); i++) {
+              String looser = finallist2.get(i).get("bowling_team");
+              String runs=finallist2.get(i).get("extra_runs");
               //  String year = date.substring(0, 4);
               int c = Integer.parseInt(runs);
-              if (h1.containsKey(winner)) {
-                  h1.replace(winner, h1.get(winner) + c);
+              if (h1.containsKey(looser)) {
+                  h1.replace(looser, h1.get(looser) + c);
               }
-              if (!h1.containsKey(winner)) {
+              if (!h1.containsKey(looser)) {
 
-                  h1.put(winner, c);
+                  h1.put(looser, c);
               }
           }
           h1.remove("");
           System.out.println(h1);
           //System.out.println(h1.values());
+
+
+      //    System.out.println(finallist2);
       }
 
       static void fun4() {
@@ -89,13 +95,19 @@ class DataProject {
         aa1=scanner.nextInt();
         String filename = "/root/Downloads/Compressed/matches.csv";
         FileReader fileReader = new FileReader(filename);
+        String filename1 = "/root/Downloads/Compressed/deliveries.csv";
+        FileReader fileReader1= new FileReader(filename1);
+        CSVReader csvReader1 = new CSVReaderBuilder(fileReader1).withSkipLines(0).build();
         CSVReader csvReader = new CSVReaderBuilder(fileReader).withSkipLines(0).build();
         List<String[]> Data = csvReader.readAll();
+        List<String[]> Data1= csvReader1.readAll();
+        ArrayList<HashMap<String, String>> finallist2 = new ArrayList<>();
         ArrayList<HashMap<String, String>> finallist1 = new ArrayList<>();
         int x = Data.size();
+        int y= Data.size();
         int a = 1;
         String[] keys = Data.get(0);
-
+        String[] keys1= Data1.get(0);
         while (a != x) {
             String[] row = Data.get(a);
             int keyarg = 0;
@@ -106,7 +118,17 @@ class DataProject {
             finallist1.add(hashMap);
             a++;
         }
-
+    a=1;
+        while (a != y) {
+            String[] row = Data1.get(a);
+            int keyarg = 0;
+            HashMap<String, String> hashMap = new HashMap<>();
+            for (String cell : row) {
+                hashMap.put(keys1[keyarg++], cell);
+            }
+            finallist2.add(hashMap);
+            a++;
+        }
 
         switch (aa1)
         {
@@ -117,7 +139,7 @@ class DataProject {
                 fun2(finallist1);
                 break;
             case 3:
-                fun3(finallist1);
+                fun3(finallist2);
                 break;
             case 4:
                 fun4();

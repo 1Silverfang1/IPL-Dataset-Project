@@ -1,70 +1,49 @@
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
+import com.opencsv.exceptions.CsvException;
+import com.sun.org.apache.xpath.internal.objects.XString;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.io.IOException;
+import java.util.*;
 
 class DataProject {
-  static   void fun1()
-    {
-        try {
-            //System.out.println("hey");
-            String filename = "/root/Downloads/Compressed/matches.csv";
-            FileReader fileReader = new FileReader(filename);
-            CSVReader csvReader = new CSVReaderBuilder(fileReader).withSkipLines(0).build();
-            List<String[]> Data= csvReader.readAll();
-            ArrayList<HashMap<String,String>> finallist1= new ArrayList<>();
-            int x= Data.size();
-            int a=1;
-            System.out.println(x);
+     static void fun1(ArrayList<HashMap<String, String>> finallist1) {
 
-            String[] keys=Data.get(0);
 
-            while(a!=x)
-            {
-                String[] row=Data.get(a);
-                int keyarg=0;
-                HashMap<String,String> hashMap= new HashMap<>();
-                for(String cell : row)
-                {
-                    hashMap.put(keys[keyarg++],cell);
-                }
-                finallist1.add(hashMap);
-                a++;
-            }
-            /*
-             System.out.println(finallist1.get(0).keySet());
-            System.out.println(finallist1.get(1).values());
-            System.out.println(finallist1.get(2).values());
-            /*
-            for (String[] row : Data) {
-                for (String cell : row) {
-                    System.out.print(cell + "\t");
-                }
+          HashMap<String, Integer> h1 = new HashMap<>();
+          for (int i = 0; i < finallist1.size(); i++) {
+              String date = finallist1.get(i).get("season");
+            //  String year = date.substring(0, 4);
+              int c = 0;
+              if (h1.containsKey(date)) {
+                  h1.replace(date, h1.get(date) + 1);
+              }
+              if (!h1.containsKey(date)) {
 
-                System.out.println();
-            }
-*/
-        } catch (Exception e) {
-            System.out.println("File Read error" + " " + e.getMessage());
-        }
-    }
-    static void fun2()
-    {
+                  h1.put(date, 1);
+              }
+          }
+          System.out.println(h1);
+      }
 
-    }
-    static void fun3()
-    {
 
-    }
-    static void fun4()
-    {
+      static void fun2() {
 
-    }
-    public static void main(String[] arg) {
+      }
+
+      static void fun3() {
+
+      }
+
+      static void fun4() {
+
+      }
+
+
+    public static void main(String[] args) throws IOException, CsvException {
+
 
         System.out.println("IPL DATASET PROJECT");
         System.out.println("Choose one of the Option Listed Below");
@@ -73,12 +52,34 @@ class DataProject {
         System.out.println("3. For the year 2016 get the extra runs conceded per team.");
         System.out.println("4. For the year 2015 get the top economical bowlers.");
         System.out.println("5. To exit");
-        Scanner sc = new Scanner(System.in);
-        int a= sc.nextInt();
-        switch (a)
+        int aa1;
+        Scanner scanner= new Scanner(System.in);
+        aa1=scanner.nextInt();
+        String filename = "/root/Downloads/Compressed/matches.csv";
+        FileReader fileReader = new FileReader(filename);
+        CSVReader csvReader = new CSVReaderBuilder(fileReader).withSkipLines(0).build();
+        List<String[]> Data = csvReader.readAll();
+        ArrayList<HashMap<String, String>> finallist1 = new ArrayList<>();
+        int x = Data.size();
+        int a = 1;
+        String[] keys = Data.get(0);
+
+        while (a != x) {
+            String[] row = Data.get(a);
+            int keyarg = 0;
+            HashMap<String, String> hashMap = new HashMap<>();
+            for (String cell : row) {
+                hashMap.put(keys[keyarg++], cell);
+            }
+            finallist1.add(hashMap);
+            a++;
+        }
+
+
+        switch (aa1)
         {
             case 1:
-                fun1();
+                fun1(finallist1);
                 break;
             case 2:
                 fun2();
@@ -95,7 +96,8 @@ class DataProject {
                 System.out.println("You Entered a wrong choice");
         }
 
+    }
 
 
     }
-}
+

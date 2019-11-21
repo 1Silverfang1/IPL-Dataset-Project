@@ -177,7 +177,24 @@ class File_parse
         return finallist2;
     }
 }
+class options_switch_Case
+{
+        int choice;
+        protected int optioncase()
+        {
+        System.out.println("IPL DATASET PROJECT");
+        System.out.println("Choose one of the Option Listed Below");
+        System.out.println("1. Number of matches played per year of all the years in IPL.");
+        System.out.println("2. Number of matches won of all teams over all the years of IPL.");
+        System.out.println("3. For the year 2016 get the extra runs conceded per team.");
+        System.out.println("4. For the year 2015 get the top economical bowlers.");
+        System.out.println("5. For the year 2016, get the win by run per team");
+        Scanner scanner = new Scanner(System.in);
+        choice = scanner.nextInt();
+        return choice;
+        }
 
+}
 class DataProject
 {
    final String matches_csv = "/root/Downloads/Compressed/matches.csv";
@@ -190,42 +207,35 @@ class DataProject
         Delivery delivery= new Delivery();
         ArrayList<HashMap<String, String>> Deliveries_list_map = file_parse.FileParsing(dataProject.delivery_csv);
         ArrayList<HashMap<String, String>> Matches_list_map =file_parse.FileParsing(dataProject.matches_csv);
-        System.out.println("IPL DATASET PROJECT");
-        System.out.println("Choose one of the Option Listed Below");
-        System.out.println("1. Number of matches played per year of all the years in IPL.");
-        System.out.println("2. Number of matches won of all teams over all the years of IPL.");
-        System.out.println("3. For the year 2016 get the extra runs conceded per team.");
-        System.out.println("4. For the year 2015 get the top economical bowlers.");
-        System.out.println("5. For the year 2016, get the win by run per team");
-        HashMap<String,Integer> Choice= new HashMap<>();
-        HashMap<String,Float> Choices = new HashMap<>();
-        Scanner scanner = new Scanner(System.in);
-        int  choice= scanner.nextInt();
+        options_switch_Case options_switch_case= new options_switch_Case();
+        HashMap<String,Integer> Choice_map= new HashMap<>();
+        HashMap<String,Float> Choices_map = new HashMap<>();
+        int  choice = options_switch_case.optioncase();
         boolean val = false;
         switch (choice) {
             case 1:
-                Choice=matches.Match_Played_Per_Year(Matches_list_map);
+                Choice_map=matches.Match_Played_Per_Year(Matches_list_map);
                 break;
             case 2:
-                Choice=matches.Match_Win_IPL(Matches_list_map);
+                Choice_map=matches.Match_Win_IPL(Matches_list_map);
                 break;
             case 3:
-                Choice=delivery.Extra_run_conceded_per_team(Deliveries_list_map,Matches_list_map);
+                Choice_map=delivery.Extra_run_conceded_per_team(Deliveries_list_map,Matches_list_map);
                 break;
             case 4:
-                Choices =delivery.Top_economical_bowler_2015(Deliveries_list_map, Matches_list_map);
+                Choices_map =delivery.Top_economical_bowler_2015(Deliveries_list_map, Matches_list_map);
                 val=true;
                 break;
             case 5:
-                Choice=matches.Win_by_run_in_2016(Matches_list_map);
+                Choice_map=matches.Win_by_run_in_2016(Matches_list_map);
                 break;
             default:
                 System.out.println("You Entered a wrong choice");
         }
         if(!val)
-        Choice.forEach((k,v)->System.out.printf("\n %-30s %d",k,v));
+        Choice_map.forEach((k,v)->System.out.printf("\n %-30s %d",k,v));
         else
-            Choices.forEach((k,v)->System.out.printf("\n %-30s %.2f",k,v));
+            Choices_map.forEach((k,v)->System.out.printf("\n %-30s %.2f",k,v));
     }
 }
 

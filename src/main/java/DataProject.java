@@ -15,18 +15,12 @@ import static java.util.Collections.min;
 class DataProject {
     public static HashMap<String, Float> sortByValue(HashMap<String, Float> hm)
     {
-        // Create a list from elements of HashMap
+
         List<Map.Entry<String, Float> > list =
                 new LinkedList<Map.Entry<String, Float> >(hm.entrySet());
 
         // Sort the list
-        Collections.sort(list, new Comparator<Map.Entry<String, Float> >() {
-            public int compare(Map.Entry<String, Float> o1,
-                               Map.Entry<String, Float> o2)
-            {
-                return (o1.getValue()).compareTo(o2.getValue());
-            }
-        });
+        Collections.sort(list, Comparator.comparing(Map.Entry::getValue));
 
         // put data from sorted list to hashmap
         HashMap<String, Float> temp = new LinkedHashMap<String, Float>();

@@ -200,8 +200,14 @@ class Output_Service_class{
 }
 class DataProject
 {
+    String matches_csv = "/root/Downloads/Compressed/matches.csv";
+    String delivery_csv = "/root/Downloads/Compressed/deliveries.csv";
+
     public static void main(String[] args) throws IOException, CsvException {
 
+        int aa1;
+        DataProject dataProject= new DataProject();
+        Output_Service_class output_service_class = new Output_Service_class();
 
         System.out.println("IPL DATASET PROJECT");
         System.out.println("Choose one of the Option Listed Below");
@@ -211,14 +217,10 @@ class DataProject
         System.out.println("4. For the year 2015 get the top economical bowlers.");
         System.out.println("5. For the year 2016, get the win by run per team");
         System.out.println("6. To exit");
-        int aa1;
         Scanner scanner = new Scanner(System.in);
         aa1 = scanner.nextInt();
-        String filename = "/root/Downloads/Compressed/matches.csv";
-        String filename1 = "/root/Downloads/Compressed/deliveries.csv";
-        Output_Service_class output_service_class = new Output_Service_class();
-        ArrayList<HashMap<String, String>> Deliveries_list_map = output_service_class.FileParsing(filename1);
-        ArrayList<HashMap<String, String>> Matches_list_map = output_service_class.FileParsing(filename);
+        ArrayList<HashMap<String, String>> Deliveries_list_map = output_service_class.FileParsing(dataProject.delivery_csv);
+        ArrayList<HashMap<String, String>> Matches_list_map = output_service_class.FileParsing(dataProject.matches_csv);
         switch (aa1) {
             case 1:
                 System.out.println(output_service_class.Match_Played_Per_Year(Matches_list_map));

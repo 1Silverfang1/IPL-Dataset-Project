@@ -7,15 +7,15 @@ import java.util.*;
 
 class Mapsort
 {
-    protected HashMap<String, Integer> sortByValue(HashMap<String, Integer> to_be_sorted) {
+    protected HashMap<String, Float> sortByValue(HashMap<String, Float> to_be_sorted) {
 
-        ArrayList<Map.Entry<String, Integer>> list = new ArrayList<>(to_be_sorted.entrySet());
+        ArrayList<Map.Entry<String, Float>> list = new ArrayList<>(to_be_sorted.entrySet());
         Collections.sort(list, Comparator.comparing(Map.Entry::getValue));
-        HashMap<String, Integer> temp = new LinkedHashMap<>();
-        for (Map.Entry<String, Integer> aa : list) {
-            temp.put(aa.getKey(), aa.getValue());
+        HashMap<String, Float> temp_map = new LinkedHashMap<>();
+        for (Map.Entry<String, Float> aa : list) {
+            temp_map.put(aa.getKey(), aa.getValue());
         }
-        return temp;
+        return temp_map;
     }
 }
 class Matches
@@ -114,7 +114,7 @@ class Delivery {
         return Extra_run_in_2016;
     }
 
-    protected HashMap<String, Integer> Top_economical_bowler_2015(ArrayList<HashMap<String, String>> Delivery_list_map, ArrayList<HashMap<String, String>> Matches_list_map) {
+    protected HashMap<String, Float> Top_economical_bowler_2015(ArrayList<HashMap<String, String>> Delivery_list_map, ArrayList<HashMap<String, String>> Matches_list_map) {
         List<String> match_played_in_2015 = new ArrayList<>();
 
         for (HashMap<String, String> Cur_match : Matches_list_map) {
@@ -145,16 +145,16 @@ class Delivery {
             balls.add(x);
         }
         int a = 0;
-        Map<String, Integer> Bowler_economical_rate_map = new HashMap<>();
+        Map<String, Float> Bowler_economical_rate_map = new HashMap<>();
         for (Map.Entry<String, Integer> entry : bowler_and_run_map.entrySet()) {
             String name = entry.getKey();
-            int r = entry.getValue();
+            float r = entry.getValue();
             int over = (balls.get(a++)) / 6;
             r /= over;
             Bowler_economical_rate_map.put(name, r);
         }
         Mapsort mapsort = new Mapsort();
-        return mapsort.sortByValue((HashMap<String, Integer>) Bowler_economical_rate_map);
+        return mapsort.sortByValue((HashMap<String, Float>) Bowler_economical_rate_map);
     }
 }
 class File_parse
@@ -198,8 +198,10 @@ class DataProject
         System.out.println("4. For the year 2015 get the top economical bowlers.");
         System.out.println("5. For the year 2016, get the win by run per team");
         HashMap<String,Integer> Choice= new HashMap<>();
+        HashMap<String,Float> Choices = new HashMap<>();
         Scanner scanner = new Scanner(System.in);
         int  choice= scanner.nextInt();
+        boolean val = false;
         switch (choice) {
             case 1:
                 Choice=matches.Match_Played_Per_Year(Matches_list_map);
@@ -211,7 +213,8 @@ class DataProject
                 Choice=delivery.Extra_run_conceded_per_team(Deliveries_list_map,Matches_list_map);
                 break;
             case 4:
-                Choice=delivery.Top_economical_bowler_2015(Deliveries_list_map, Matches_list_map);
+                Choices =delivery.Top_economical_bowler_2015(Deliveries_list_map, Matches_list_map);
+                val=true;
                 break;
             case 5:
                 Choice=matches.Win_by_run_in_2016(Matches_list_map);
@@ -219,8 +222,10 @@ class DataProject
             default:
                 System.out.println("You Entered a wrong choice");
         }
+        if(!val)
         Choice.forEach((k,v)->System.out.printf("\n %-30s %d",k,v));
-
+        else
+            Choices.forEach((k,v)->System.out.printf("\n %-30s %.2f",k,v));
     }
 }
 

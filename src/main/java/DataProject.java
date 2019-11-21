@@ -1,12 +1,11 @@
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-class DataProject {
+class Output_Service_class {
 
     private static HashMap<String, Float> sortByValue(HashMap<String, Float> hm)
     {
@@ -196,6 +195,12 @@ class DataProject {
 
     }
 
+
+
+
+}
+class DataProject
+{
     public static void main(String[] args) throws IOException, CsvException {
 
 
@@ -212,23 +217,24 @@ class DataProject {
         aa1 = scanner.nextInt();
         String filename = "/root/Downloads/Compressed/matches.csv";
         String filename1 = "/root/Downloads/Compressed/deliveries.csv";
-        ArrayList<HashMap<String, String>> Deliveries_list_map = FileParsing(filename1);
-        ArrayList<HashMap<String, String>> Matches_list_map = FileParsing(filename);
+
+        ArrayList<HashMap<String, String>> Deliveries_list_map = Output_Service_class.FileParsing(filename1);
+        ArrayList<HashMap<String, String>> Matches_list_map = Output_Service_class.FileParsing(filename);
         switch (aa1) {
             case 1:
-                System.out.println(Match_Played_Per_Year(Matches_list_map));
+                System.out.println(Output_Service_class.Match_Played_Per_Year(Matches_list_map));
                 break;
             case 2:
-                System.out.println(Match_Win_IPL(Matches_list_map));
+                System.out.println(Output_Service_class.Match_Win_IPL(Matches_list_map));
                 break;
             case 3:
-                System.out.println(Extra_run_conceded_per_team(Deliveries_list_map,Matches_list_map));
+                System.out.println(Output_Service_class.Extra_run_conceded_per_team(Deliveries_list_map,Matches_list_map));
                 break;
             case 4:
-                System.out.println(Top_economical_bowler_2015(Deliveries_list_map, Matches_list_map));
+                System.out.println(Output_Service_class.Top_economical_bowler_2015(Deliveries_list_map, Matches_list_map));
                 break;
             case 5:
-                System.out.println(Win_by_run_in_2016(Matches_list_map));
+                System.out.println(Output_Service_class.Win_by_run_in_2016(Matches_list_map));
                 break;
             case 6:
                 return;
@@ -237,7 +243,5 @@ class DataProject {
         }
 
     }
-
-
 }
 

@@ -24,7 +24,7 @@ class DataProject {
             public int compare(Map.Entry<String, Float> o1,
                                Map.Entry<String, Float> o2)
             {
-                return (o2.getValue()).compareTo(o1.getValue());
+                return (o1.getValue()).compareTo(o2.getValue());
             }
         });
 
@@ -162,9 +162,10 @@ class DataProject {
           for (Map.Entry<String,Integer> entry : map1.entrySet())
           {
               String name= entry.getKey();
-              int runs= entry.getValue();
+             // int runs= entry.getValue();
               float r= entry.getValue();
-              r/=balls.get(a++);
+              int over= (balls.get(a++))/6;
+              r/=over;
               map3.put(name,r);
           }
           System.out.println("Economical values of bowler order in 2015");

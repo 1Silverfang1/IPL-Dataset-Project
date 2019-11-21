@@ -7,27 +7,27 @@ import java.util.*;
 
 class Output_Service_class{
 
-    private static HashMap<String, Float> sortByValue(HashMap<String, Float> hm) {
+    private static HashMap<String,Integer> sortByValue(HashMap<String,Integer> to_be_sorted) {
 
-        ArrayList<Map.Entry<String, Float>> list = new ArrayList<>(hm.entrySet());
+        ArrayList<Map.Entry<String,Integer>> list = new ArrayList<>(to_be_sorted.entrySet());
         Collections.sort(list, Comparator.comparing(Map.Entry::getValue));
-        HashMap<String, Float> temp = new LinkedHashMap<String, Float>();
-        for (Map.Entry<String, Float> aa : list) {
+        HashMap<String, Integer> temp = new LinkedHashMap<>();
+        for (Map.Entry<String, Integer> aa : list)
+        {
             temp.put(aa.getKey(), aa.getValue());
         }
         return temp;
     }
 
 
-   protected HashMap<String, Integer> Match_Played_Per_Year(ArrayList<HashMap<String, String>> finallist1)
+   protected HashMap<String, Integer> Match_Played_Per_Year(ArrayList<HashMap<String, String>> Matches_list_map)
     {
 
 
         HashMap<String, Integer> Math_Played = new HashMap<>();
-        for (int i = 0; i < finallist1.size(); i++)
+        for(HashMap<String,String> stringStringHashMap:Matches_list_map)
         {
-            String year = finallist1.get(i).get("season");
-            int c = 0;
+            String year= stringStringHashMap.get("season");
             if (Math_Played.containsKey(year))
             {
                 Math_Played.replace(year, Math_Played.get(year) + 1);
@@ -38,17 +38,18 @@ class Output_Service_class{
                 Math_Played.put(year, 1);
             }
         }
+        Math_Played.remove("season");
         return Math_Played;
     }
 
 
-    protected HashMap<String,Integer> Match_Win_IPL(ArrayList<HashMap<String, String>> finallist1)
+    protected HashMap<String,Integer> Match_Win_IPL(ArrayList<HashMap<String, String>>Matches_list_map)
     {
 
         HashMap<String, Integer> Match_win_in_IPL = new HashMap<>();
-        for (int i = 0; i < finallist1.size(); i++)
+        for(HashMap<String,String> Current_match :Matches_list_map)
         {
-            String winner = finallist1.get(i).get("winner");
+            String winner= Current_match.get("winner");
             int c = 0;
             if (Match_win_in_IPL.containsKey(winner))
             {
@@ -66,61 +67,61 @@ class Output_Service_class{
 
     }
 
-    protected  HashMap<String,Integer> Extra_run_conceded_per_team(ArrayList<HashMap<String, String>> finallist2, ArrayList<HashMap<String, String>> finallist1)
+    protected  HashMap<String,Integer> Extra_run_conceded_per_team(ArrayList<HashMap<String, String>> Delivery_list_map, ArrayList<HashMap<String, String>> Matches_list_map)
     {
-
+        HashMap<String, Integer> Extra_run_in_2016 = new HashMap<>();
         List<String> id = new ArrayList<>();
-
-        for (int i = 0; i < finallist1.size(); i++)
+        for(HashMap<String,String> Cur_match : Matches_list_map)
         {
-            String seasons = finallist1.get(i).get("season");
-            if (seasons.equals("2016"))
+            String season=Cur_match.get("season");
+            if(season.equals("2016"))
             {
-
-                id.add(finallist1.get(i).get("id"));
-                ;
+                id.add(Cur_match.get("id"));
             }
         }
-        HashMap<String, Integer> Extra_run_in_2016 = new HashMap<>();
-        for (int i = 0; i < finallist2.size(); i++)
+
+        for(HashMap<String,String> Cur_match : Delivery_list_map)
         {
-            String id_cur = finallist2.get(i).get("match_id");
-            if (id.contains(id_cur))
+            String Cur_id = Cur_match.get("match_id");
+            if(id.contains(Cur_id))
             {
-                String looser = finallist2.get(i).get("bowling_team");
-                String runs = finallist2.get(i).get("extra_runs");
-                int c = Integer.parseInt(runs);
-                if (Extra_run_in_2016.containsKey(looser))
+                String bowler=Cur_match.get("bowling_team");
+                String runs=Cur_match.get("extra_runs");
+                int run= Integer.parseInt(runs);
+                if (Extra_run_in_2016.containsKey(bowler))
                 {
-                    Extra_run_in_2016.replace(looser, Extra_run_in_2016.get(looser) + c);
+                    Extra_run_in_2016.replace(bowler, Extra_run_in_2016.get(bowler) + run);
                 }
-                if (!Extra_run_in_2016.containsKey(looser))
+                if (!Extra_run_in_2016.containsKey(bowler))
                 {
 
-                    Extra_run_in_2016.put(looser, c);
+                    Extra_run_in_2016.put(bowler, run);
                 }
             }
         }
         return Extra_run_in_2016;
     }
 
-    protected  HashMap<String,Float> Top_economical_bowler_2015(ArrayList<HashMap<String, String>> finallist2, ArrayList<HashMap<String, String>> finallist1) {
+    protected  HashMap<String,Integer> Top_economical_bowler_2015(ArrayList<HashMap<String, String>> Delivery_list_map, ArrayList<HashMap<String, String>> Matches_list_map ) {
         List<String> match_played_in_2015 = new ArrayList<>();
-        for (int i = 0; i < finallist1.size(); i++)
+
+        for(HashMap<String,String> Cur_match : Matches_list_map)
         {
-            if ("2015".equals(finallist1.get(i).get("season")))
+            String season=Cur_match.get("season");
+            if(season.equals("2015"))
             {
-                match_played_in_2015.add(finallist1.get(i).get("id"));
+                match_played_in_2015.add(Cur_match.get("id"));
             }
         }
+
         HashMap<String, Integer> bowler_and_run_map = new HashMap<>();
         HashMap<String, Integer> bowler_and_delivery_map = new HashMap<>();
-        for (int i = 0; i < finallist2.size(); i++)
+        for(HashMap<String,String> Cur_match : Delivery_list_map)
         {
-            if (match_played_in_2015.contains(finallist2.get(i).get("match_id")))
+            if(match_played_in_2015.contains(Cur_match.get("match_id")))
             {
-                String bowler = finallist2.get(i).get("bowler");
-                int run = Integer.parseInt(finallist2.get(i).get("total_runs"));
+                String bowler= Cur_match.get("bowler");
+                int run=Integer.parseInt(Cur_match.get("total_runs"));
                 if (bowler_and_run_map.containsKey(bowler))
                 {
                     bowler_and_run_map.replace(bowler, bowler_and_run_map.get(bowler) + run);
@@ -139,16 +140,16 @@ class Output_Service_class{
             balls.add(x);
         }
         int a = 0;
-        Map<String, Float> Bowler_economical_rate_map = new HashMap<>();
+        Map<String, Integer> Bowler_economical_rate_map = new HashMap<>();
         for (Map.Entry<String, Integer> entry : bowler_and_run_map.entrySet())
         {
             String name = entry.getKey();
-            float r = entry.getValue();
+            int r = entry.getValue();
             int over = (balls.get(a++)) / 6;
             r /= over;
             Bowler_economical_rate_map.put(name, r);
         }
-        return sortByValue((HashMap<String, Float>) Bowler_economical_rate_map);
+        return sortByValue((HashMap<String, Integer>) Bowler_economical_rate_map);
     }
 
     protected  ArrayList<HashMap<String, String>> FileParsing(String filename) throws IOException, CsvException
@@ -172,43 +173,28 @@ class Output_Service_class{
         return finallist2;
     }
 
-    protected HashMap<String,Integer> Win_by_run_in_2016 (ArrayList<HashMap<String, String>> finallist1) {
+    protected HashMap<String,Integer> Win_by_run_in_2016 (ArrayList<HashMap<String, String>> Matches_list_map) {
         HashMap<String, Integer> win_by_run = new HashMap<>();
-        for (int i = 0; i < finallist1.size(); i++)
+        for(HashMap<String,String> Cur_match : Matches_list_map )
         {
-            if ("2016".equals(finallist1.get(i).get("season"))) {
-                String winner = finallist1.get(i).get("winner");
-                int c = Integer.parseInt(finallist1.get(i).get("win_by_runs"));
-                if (win_by_run.containsKey(winner)) {
-                    win_by_run.replace(winner, win_by_run.get(winner) + c);
+            if("2016".equals(Cur_match.get("season")))
+            {
+                String winner= Cur_match.get("winner");
+                int run= Integer.parseInt(Cur_match.get("win_by_runs"));
+                if(win_by_run.containsKey(winner)) {
+                    win_by_run.replace(winner, win_by_run.get(winner) + run);
                 }
                 if (!win_by_run.containsKey(winner)) {
 
-                    win_by_run.put(winner, c);
+                    win_by_run.put(winner, run);
                 }
             }
         }
         win_by_run.remove("");
         return win_by_run;
-
-
     }
-
-
-
-
-}
-class DataProject
-{
-    String matches_csv = "/root/Downloads/Compressed/matches.csv";
-    String delivery_csv = "/root/Downloads/Compressed/deliveries.csv";
-
-    public static void main(String[] args) throws IOException, CsvException {
-
-        int aa1;
-        DataProject dataProject= new DataProject();
-        Output_Service_class output_service_class = new Output_Service_class();
-
+    HashMap<String,Integer> switch_case(ArrayList<HashMap<String, String>> Deliveries_list_map,ArrayList<HashMap<String, String>> Matches_list_map)
+    {
         System.out.println("IPL DATASET PROJECT");
         System.out.println("Choose one of the Option Listed Below");
         System.out.println("1. Number of matches played per year of all the years in IPL.");
@@ -216,32 +202,45 @@ class DataProject
         System.out.println("3. For the year 2016 get the extra runs conceded per team.");
         System.out.println("4. For the year 2015 get the top economical bowlers.");
         System.out.println("5. For the year 2016, get the win by run per team");
-        System.out.println("6. To exit");
+        HashMap<String,Integer> Choice= new HashMap<>();
         Scanner scanner = new Scanner(System.in);
-        aa1 = scanner.nextInt();
-        ArrayList<HashMap<String, String>> Deliveries_list_map = output_service_class.FileParsing(dataProject.delivery_csv);
-        ArrayList<HashMap<String, String>> Matches_list_map = output_service_class.FileParsing(dataProject.matches_csv);
-        switch (aa1) {
+       int  choice= scanner.nextInt();
+        switch (choice) {
             case 1:
-                System.out.println(output_service_class.Match_Played_Per_Year(Matches_list_map));
+                Choice=Match_Played_Per_Year(Matches_list_map);
                 break;
             case 2:
-                System.out.println(output_service_class.Match_Win_IPL(Matches_list_map));
+                Choice=Match_Win_IPL(Matches_list_map);
                 break;
             case 3:
-                System.out.println(output_service_class.Extra_run_conceded_per_team(Deliveries_list_map,Matches_list_map));
+                Choice=Extra_run_conceded_per_team(Deliveries_list_map,Matches_list_map);
                 break;
             case 4:
-                System.out.println(output_service_class.Top_economical_bowler_2015(Deliveries_list_map, Matches_list_map));
+                Choice=Top_economical_bowler_2015(Deliveries_list_map, Matches_list_map);
                 break;
             case 5:
-                System.out.println(output_service_class.Win_by_run_in_2016(Matches_list_map));
+                Choice=Win_by_run_in_2016(Matches_list_map);
                 break;
-            case 6:
-                return;
             default:
                 System.out.println("You Entered a wrong choice");
         }
+return  Choice;
+    }
+}
+
+class DataProject
+{
+    String matches_csv = "/root/Downloads/Compressed/matches.csv";
+    String delivery_csv = "/root/Downloads/Compressed/deliveries.csv";
+
+    public static void main(String[] args) throws IOException, CsvException {
+        DataProject dataProject= new DataProject();
+        Output_Service_class output_service_class = new Output_Service_class();
+        ArrayList<HashMap<String, String>> Deliveries_list_map = output_service_class.FileParsing(dataProject.delivery_csv);
+        ArrayList<HashMap<String, String>> Matches_list_map = output_service_class.FileParsing(dataProject.matches_csv);
+        HashMap<String,Integer> Choice_answers= output_service_class.switch_case(Deliveries_list_map,Matches_list_map);
+        Choice_answers.forEach((k,v)->System.out.printf("\n %-30s %d",k,v));
+        //System.out.println(Choice_answers);
 
     }
 }

@@ -5,22 +5,21 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-class Output_Service_class {
+class Output_Service_class{
 
-    private static HashMap<String, Float> sortByValue(HashMap<String, Float> hm)
-    {
+    private static HashMap<String, Float> sortByValue(HashMap<String, Float> hm) {
 
         ArrayList<Map.Entry<String, Float>> list = new ArrayList<>(hm.entrySet());
         Collections.sort(list, Comparator.comparing(Map.Entry::getValue));
         HashMap<String, Float> temp = new LinkedHashMap<String, Float>();
-        for (Map.Entry<String, Float> aa : list)
-        {
+        for (Map.Entry<String, Float> aa : list) {
             temp.put(aa.getKey(), aa.getValue());
         }
         return temp;
     }
 
-    static HashMap<String, Integer> Match_Played_Per_Year(ArrayList<HashMap<String, String>> finallist1)
+
+   protected HashMap<String, Integer> Match_Played_Per_Year(ArrayList<HashMap<String, String>> finallist1)
     {
 
 
@@ -43,7 +42,7 @@ class Output_Service_class {
     }
 
 
-    static HashMap<String,Integer> Match_Win_IPL(ArrayList<HashMap<String, String>> finallist1)
+    protected HashMap<String,Integer> Match_Win_IPL(ArrayList<HashMap<String, String>> finallist1)
     {
 
         HashMap<String, Integer> Match_win_in_IPL = new HashMap<>();
@@ -67,7 +66,7 @@ class Output_Service_class {
 
     }
 
-    static HashMap<String,Integer> Extra_run_conceded_per_team(ArrayList<HashMap<String, String>> finallist2, ArrayList<HashMap<String, String>> finallist1)
+    protected  HashMap<String,Integer> Extra_run_conceded_per_team(ArrayList<HashMap<String, String>> finallist2, ArrayList<HashMap<String, String>> finallist1)
     {
 
         List<String> id = new ArrayList<>();
@@ -105,7 +104,7 @@ class Output_Service_class {
         return Extra_run_in_2016;
     }
 
-    static HashMap<String,Float> Top_economical_bowler_2015(ArrayList<HashMap<String, String>> finallist2, ArrayList<HashMap<String, String>> finallist1) {
+    protected  HashMap<String,Float> Top_economical_bowler_2015(ArrayList<HashMap<String, String>> finallist2, ArrayList<HashMap<String, String>> finallist1) {
         List<String> match_played_in_2015 = new ArrayList<>();
         for (int i = 0; i < finallist1.size(); i++)
         {
@@ -152,7 +151,7 @@ class Output_Service_class {
         return sortByValue((HashMap<String, Float>) Bowler_economical_rate_map);
     }
 
-    static ArrayList<HashMap<String, String>> FileParsing(String filename) throws IOException, CsvException
+    protected  ArrayList<HashMap<String, String>> FileParsing(String filename) throws IOException, CsvException
     {
         FileReader fileReader = new FileReader(filename);
         CSVReader csvReader = new CSVReaderBuilder(fileReader).withSkipLines(0).build();
@@ -173,7 +172,7 @@ class Output_Service_class {
         return finallist2;
     }
 
-    static HashMap<String,Integer> Win_by_run_in_2016 (ArrayList<HashMap<String, String>> finallist1) {
+    protected HashMap<String,Integer> Win_by_run_in_2016 (ArrayList<HashMap<String, String>> finallist1) {
         HashMap<String, Integer> win_by_run = new HashMap<>();
         for (int i = 0; i < finallist1.size(); i++)
         {
@@ -217,24 +216,24 @@ class DataProject
         aa1 = scanner.nextInt();
         String filename = "/root/Downloads/Compressed/matches.csv";
         String filename1 = "/root/Downloads/Compressed/deliveries.csv";
-
-        ArrayList<HashMap<String, String>> Deliveries_list_map = Output_Service_class.FileParsing(filename1);
-        ArrayList<HashMap<String, String>> Matches_list_map = Output_Service_class.FileParsing(filename);
+        Output_Service_class output_service_class = new Output_Service_class();
+        ArrayList<HashMap<String, String>> Deliveries_list_map = output_service_class.FileParsing(filename1);
+        ArrayList<HashMap<String, String>> Matches_list_map = output_service_class.FileParsing(filename);
         switch (aa1) {
             case 1:
-                System.out.println(Output_Service_class.Match_Played_Per_Year(Matches_list_map));
+                System.out.println(output_service_class.Match_Played_Per_Year(Matches_list_map));
                 break;
             case 2:
-                System.out.println(Output_Service_class.Match_Win_IPL(Matches_list_map));
+                System.out.println(output_service_class.Match_Win_IPL(Matches_list_map));
                 break;
             case 3:
-                System.out.println(Output_Service_class.Extra_run_conceded_per_team(Deliveries_list_map,Matches_list_map));
+                System.out.println(output_service_class.Extra_run_conceded_per_team(Deliveries_list_map,Matches_list_map));
                 break;
             case 4:
-                System.out.println(Output_Service_class.Top_economical_bowler_2015(Deliveries_list_map, Matches_list_map));
+                System.out.println(output_service_class.Top_economical_bowler_2015(Deliveries_list_map, Matches_list_map));
                 break;
             case 5:
-                System.out.println(Output_Service_class.Win_by_run_in_2016(Matches_list_map));
+                System.out.println(output_service_class.Win_by_run_in_2016(Matches_list_map));
                 break;
             case 6:
                 return;

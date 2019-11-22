@@ -1,7 +1,14 @@
 import java.util.Scanner;
 class optionsSwitchCase
-        {
-                int options()
+{
+
+        static final String matches_csv = "matches.csv",delivery_csv = "deliveries.csv",winByRuns="win_by_runs";
+        static final String wrongChoice = "You Entered a wrong choice",fileError = "Unable to open the file, Does file exits?";
+        static final String season = "season",year = "2016", preYear ="2015",id = "id", matchId = "match_id",winner="winner";
+        static final String bowlingTeam = "bowling_team", extraRuns = "extra_runs", bowler="bowler", totalRuns ="total_runs";
+
+
+        int options()
         {
         System.out.println("IPL DATASET PROJECT");
         System.out.println("Choose one of the Option Listed Below");

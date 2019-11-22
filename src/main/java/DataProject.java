@@ -1,43 +1,49 @@
 import com.opencsv.exceptions.CsvException;
-
 import java.io.IOException;
 import java.util.*;
 class DataProject
 {
-   private final String matches_csv = "matches.csv";
-    private final String delivery_csv = "deliveries.csv";
 
-    public static void main(String[] args) throws IOException, CsvException {
-        DataProject dataProject= new DataProject();
+
+    public static void main(String[] args){
         fileParse fileParse = new fileParse();
-        matches matches= new matches();
+        Matches matches= new Matches();
         delivery delivery= new delivery();
-        ArrayList<HashMap<String, String>> Deliveries_list_map = fileParse.FileParsing(dataProject.delivery_csv);
-        ArrayList<HashMap<String, String>> Matches_list_map = fileParse.FileParsing(dataProject.matches_csv);
         optionsSwitchCase options_switch_case= new optionsSwitchCase();
+        ArrayList<HashMap<String, String>> deliveriesListMap = null;
+        ArrayList<HashMap<String, String>> matchesListMap =null;
+        try {
+            deliveriesListMap = fileParse.FileParsing(optionsSwitchCase.delivery_csv);
+            matchesListMap = fileParse.FileParsing(optionsSwitchCase.matches_csv);
+        } catch (IOException | CsvException e) {
+            System.out.println(optionsSwitchCase.fileError);
+            return;
+        }
+
+
         HashMap<String,Integer> choiceMap= new HashMap<>();
         HashMap<String,Float> choicesMap = new HashMap<>();
         int  choice = options_switch_case.options();
         boolean val = false;
         switch (choice) {
             case 1:
-                choiceMap=matches.Match_Played_Per_Year(Matches_list_map);
+                choiceMap=matches.matchPlayedPerYear(matchesListMap);
                 break;
             case 2:
-                choiceMap=matches.Match_Win_IPL(Matches_list_map);
+                choiceMap=matches.matchWinIPL(matchesListMap);
                 break;
             case 3:
-                choiceMap=delivery.Extra_run_conceded_per_team(Deliveries_list_map,Matches_list_map);
+                choiceMap=delivery.Extra_run_conceded_per_team(deliveriesListMap,matchesListMap);
                 break;
             case 4:
-                choicesMap =delivery.Top_economical_bowler_2015(Deliveries_list_map, Matches_list_map);
+                choicesMap =delivery.Top_economical_bowler_2015(deliveriesListMap, matchesListMap);
                 val=true;
                 break;
             case 5:
-                choiceMap=matches.Win_by_run_in_2016(Matches_list_map);
+                choiceMap=matches.winByRunIn2016(matchesListMap);
                 break;
             default:
-                System.out.println("You Entered a wrong choice");
+                System.out.println(optionsSwitchCase.wrongChoice);
         }
         if(!val)
         choiceMap.forEach((k,v)->System.out.printf("\n %-30s %d",k,v));
@@ -46,3 +52,4 @@ class DataProject
     }
 }
 
+//remove constants

@@ -1,13 +1,11 @@
 import java.util.Scanner;
-class optionsSwitchCase
+class ConstantsValues
 {
-
-        static final String matches_csv = "matches.csv",delivery_csv = "deliveries.csv",winByRuns="win_by_runs";
-        static final String wrongChoice = "You Entered a wrong choice",fileError = "Unable to open the file, Does file exits?";
-        static final String season = "season",year = "2016", preYear ="2015",id = "id", matchId = "match_id",winner="winner";
-        static final String bowlingTeam = "bowling_team", extraRuns = "extra_runs", bowler="bowler", totalRuns ="total_runs";
-
-
+        static final int OVER =6;
+        static final String MATCHES_CSV = "matches.csv", DELIVERIES_CSV = "deliveries.csv", WIN_BY_RUNS ="win_by_runs";
+        static final String WRONG_CHOICE = "You Entered a wrong choice", FILE_ERROR = "Unable to open the file, Does file exits?";
+        static final String SEASON = "season", YEAR = "2016", PRE_YEAR ="2015",id = "id", MATCH_ID = "match_id", WINNER ="winner";
+        static final String BOWLING_TEAM = "bowling_team", EXTRA_RUNS = "extra_runs", BOWLER ="bowler", TOTAL_RUNS ="total_runs";
         int options()
         {
         System.out.println("IPL DATASET PROJECT");

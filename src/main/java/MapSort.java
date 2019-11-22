@@ -1,6 +1,6 @@
 import java.util.*;
 
-class mapSort
+class MapSort
 {
     HashMap<String, Float> sortByValue(HashMap<String, Float> toBeSorted) {
 

@@ -6,24 +6,24 @@ class DataProject
 
 
     public static void main(String[] args){
-        fileParse fileParse = new fileParse();
+        FileParse fileParse = new FileParse();
         Matches matches= new Matches();
-        delivery delivery= new delivery();
-        optionsSwitchCase options_switch_case= new optionsSwitchCase();
+        Delivery delivery= new Delivery();
+        ConstantsValues optionsSwitchCase= new ConstantsValues();
         ArrayList<HashMap<String, String>> deliveriesListMap = null;
         ArrayList<HashMap<String, String>> matchesListMap =null;
         try {
-            deliveriesListMap = fileParse.FileParsing(optionsSwitchCase.delivery_csv);
-            matchesListMap = fileParse.FileParsing(optionsSwitchCase.matches_csv);
+            deliveriesListMap = fileParse.FileParsing(ConstantsValues.DELIVERIES_CSV);
+            matchesListMap = fileParse.FileParsing(ConstantsValues.MATCHES_CSV);
         } catch (IOException | CsvException e) {
-            System.out.println(optionsSwitchCase.fileError);
+            System.out.println(ConstantsValues.FILE_ERROR);
             return;
         }
 
 
         HashMap<String,Integer> choiceMap= new HashMap<>();
         HashMap<String,Float> choicesMap = new HashMap<>();
-        int  choice = options_switch_case.options();
+        int  choice = optionsSwitchCase.options();
         boolean val = false;
         switch (choice) {
             case 1:
@@ -33,17 +33,17 @@ class DataProject
                 choiceMap=matches.matchWinIPL(matchesListMap);
                 break;
             case 3:
-                choiceMap=delivery.Extra_run_conceded_per_team(deliveriesListMap,matchesListMap);
+                choiceMap=delivery.extraRunConcededPerTeam(deliveriesListMap,matchesListMap);
                 break;
             case 4:
-                choicesMap =delivery.Top_economical_bowler_2015(deliveriesListMap, matchesListMap);
+                choicesMap =delivery.topEconomicalBowler2015(deliveriesListMap, matchesListMap);
                 val=true;
                 break;
             case 5:
                 choiceMap=matches.winByRunIn2016(matchesListMap);
                 break;
             default:
-                System.out.println(optionsSwitchCase.wrongChoice);
+                System.out.println(ConstantsValues.WRONG_CHOICE);
         }
         if(!val)
         choiceMap.forEach((k,v)->System.out.printf("\n %-30s %d",k,v));

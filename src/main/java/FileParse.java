@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-class fileParse
+class FileParse
 {
     ArrayList<HashMap<String, String>> FileParsing(String filename) throws IOException, CsvException {
         FileReader fileReader = new FileReader(filename);

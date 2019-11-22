@@ -3,75 +3,71 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class delivery {
-    HashMap<String, Integer> Extra_run_conceded_per_team(ArrayList<HashMap<String, String>> Delivery_list_map, ArrayList<HashMap<String, String>> Matches_list_map) {
-        HashMap<String, Integer> Extra_run_in_2016 = new HashMap<>();
+class Delivery {
+    HashMap<String, Integer> extraRunConcededPerTeam(ArrayList<HashMap<String, String>> deliveryListMap, ArrayList<HashMap<String, String>> matchesListMap) {
+        HashMap<String, Integer> extraRunIn2016 = new HashMap<>();
         List<String> id = new ArrayList<>();
-        for (HashMap<String, String> Cur_match : Matches_list_map) {
-            String season = Cur_match.get(optionsSwitchCase.season);
-            if (season.equals(optionsSwitchCase.year)) {
-                id.add(Cur_match.get(optionsSwitchCase.id));
+        for (HashMap<String, String> currentMatch : matchesListMap) {
+            String season = currentMatch.get(ConstantsValues.SEASON);
+            if (season.equals(ConstantsValues.YEAR)) {
+                id.add(currentMatch.get(ConstantsValues.id));
             }
         }
 
-        for (HashMap<String, String> Cur_match : Delivery_list_map) {
-            String Cur_id = Cur_match.get(optionsSwitchCase.matchId);
-            if (id.contains(Cur_id)) {
-                String bowler = Cur_match.get(optionsSwitchCase.bowlingTeam);
-                String runs = Cur_match.get(optionsSwitchCase.extraRuns);
+        for (HashMap<String, String> currentMatch : deliveryListMap) {
+            String curId = currentMatch.get(ConstantsValues.MATCH_ID);
+            if (id.contains(curId)) {
+                String bowler = currentMatch.get(ConstantsValues.BOWLING_TEAM);
+                String runs = currentMatch.get(ConstantsValues.EXTRA_RUNS);
                 int run = Integer.parseInt(runs);
-                if (Extra_run_in_2016.containsKey(bowler)) {
-                    Extra_run_in_2016.replace(bowler, Extra_run_in_2016.get(bowler) + run);
+                if (extraRunIn2016.containsKey(bowler)) {
+                    extraRunIn2016.replace(bowler, extraRunIn2016.get(bowler) + run);
                 }
-                if (!Extra_run_in_2016.containsKey(bowler)) {
+                if (!extraRunIn2016.containsKey(bowler)) {
 
-                    Extra_run_in_2016.put(bowler, run);
+                    extraRunIn2016.put(bowler, run);
                 }
             }
         }
-        return Extra_run_in_2016;
+        return extraRunIn2016;
     }
 
-    HashMap<String, Float> Top_economical_bowler_2015(ArrayList<HashMap<String, String>> Delivery_list_map, ArrayList<HashMap<String, String>> Matches_list_map) {
-        List<String> match_played_in_2015 = new ArrayList<>();
+    HashMap<String, Float> topEconomicalBowler2015(ArrayList<HashMap<String, String>> deliveryListMap, ArrayList<HashMap<String, String>> matchesListMap) {
+        List<String> matchPlayedIn2015 = new ArrayList<>();
 
-        for (HashMap<String, String> Cur_match : Matches_list_map) {
-            String season = Cur_match.get(optionsSwitchCase.season);
-            if (season.equals(optionsSwitchCase.preYear)) {
-                match_played_in_2015.add(Cur_match.get(optionsSwitchCase.id));
+        for (HashMap<String, String> currentMatch : matchesListMap) {
+            String season = currentMatch.get(ConstantsValues.SEASON);
+            if (season.equals(ConstantsValues.PRE_YEAR)) {
+                matchPlayedIn2015.add(currentMatch.get(ConstantsValues.id));
             }
         }
 
-        HashMap<String, Integer> bowler_and_run_map = new HashMap<>();
-        HashMap<String, Integer> bowler_and_delivery_map = new HashMap<>();
-        for (HashMap<String, String> Cur_match : Delivery_list_map) {
-            if (match_played_in_2015.contains(Cur_match.get(optionsSwitchCase.matchId))) {
-                String bowler = Cur_match.get(optionsSwitchCase.bowler);
-                int run = Integer.parseInt(Cur_match.get(optionsSwitchCase.totalRuns));
-                if (bowler_and_run_map.containsKey(bowler)) {
-                    bowler_and_run_map.replace(bowler, bowler_and_run_map.get(bowler) + run);
-                    bowler_and_delivery_map.replace(bowler, bowler_and_delivery_map.get(bowler) + 1);
+        HashMap<String, Integer> bowlerAndRunMap = new HashMap<>();
+        HashMap<String, Integer> bowlerAndDeliveryMap = new HashMap<>();
+        for (HashMap<String, String> currentMatch : deliveryListMap) {
+            if (matchPlayedIn2015.contains(currentMatch.get(ConstantsValues.MATCH_ID))) {
+                String bowler = currentMatch.get(ConstantsValues.BOWLER);
+                int run = Integer.parseInt(currentMatch.get(ConstantsValues.TOTAL_RUNS));
+                if (bowlerAndRunMap.containsKey(bowler)) {
+                    bowlerAndRunMap.replace(bowler, bowlerAndRunMap.get(bowler) + run);
+                    bowlerAndDeliveryMap.replace(bowler, bowlerAndDeliveryMap.get(bowler) + 1);
                 }
-                if (!bowler_and_run_map.containsKey(bowler)) {
-                    bowler_and_run_map.put(bowler, run);
-                    bowler_and_delivery_map.put(bowler, 1);
+                if (!bowlerAndRunMap.containsKey(bowler)) {
+                    bowlerAndRunMap.put(bowler, run);
+                    bowlerAndDeliveryMap.put(bowler, 1);
                 }
             }
         }
-        List<Integer> balls = new ArrayList<>();
-        for (int x : bowler_and_delivery_map.values()) {
-            balls.add(x);
-        }
+        List<Integer> balls = new ArrayList<>(bowlerAndDeliveryMap.values());
         int a = 0;
-        Map<String, Float> Bowler_economical_rate_map = new HashMap<>();
-        for (Map.Entry<String, Integer> entry : bowler_and_run_map.entrySet()) {
+        HashMap<String, Float> bowlerEconomicalRateMap = new HashMap<>();
+        for (Map.Entry<String, Integer> entry : bowlerAndRunMap.entrySet()) {
             String name = entry.getKey();
-            float r = entry.getValue();
-            int over = (balls.get(a++)) / 6;
-            r /= over;
-            Bowler_economical_rate_map.put(name, r);
+            int over = (balls.get(a++)) /ConstantsValues.OVER;
+            float runs = (float) entry.getValue() / over;
+            bowlerEconomicalRateMap.put(name, runs);
         }
-        mapSort mapsort = new mapSort();
-        return mapsort.sortByValue((HashMap<String, Float>) Bowler_economical_rate_map);
+        MapSort mapsort = new MapSort();
+        return mapsort.sortByValue(bowlerEconomicalRateMap);
     }
 }

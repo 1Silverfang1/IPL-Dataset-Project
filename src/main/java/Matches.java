@@ -7,10 +7,10 @@ class Matches
         HashMap<String, Integer> winByRun = new HashMap<>();
         for(HashMap<String,String> curMatch : matchesListMap )
         {
-            if(optionsSwitchCase.year.equals(curMatch.get(optionsSwitchCase.season)))
+            if(ConstantsValues.YEAR.equals(curMatch.get(ConstantsValues.SEASON)))
             {
-                String winner= curMatch.get(optionsSwitchCase.winner);
-                int run= Integer.parseInt(curMatch.get(optionsSwitchCase.winByRuns));
+                String winner= curMatch.get(ConstantsValues.WINNER);
+                int run= Integer.parseInt(curMatch.get(ConstantsValues.WIN_BY_RUNS));
                 if(winByRun.containsKey(winner)) {
                     winByRun.replace(winner, winByRun.get(winner) + run);
                 }
@@ -27,22 +27,22 @@ class Matches
     {
 
 
-        HashMap<String, Integer> Math_Played = new HashMap<>();
+        HashMap<String, Integer> matchPlayed = new HashMap<>();
         for(HashMap<String,String> stringStringHashMap:matchesListMap)
         {
-            String year= stringStringHashMap.get(optionsSwitchCase.season);
-            if (Math_Played.containsKey(year))
+            String year= stringStringHashMap.get(ConstantsValues.SEASON);
+            if (matchPlayed.containsKey(year))
             {
-                Math_Played.replace(year, Math_Played.get(year) + 1);
+                matchPlayed.replace(year, matchPlayed.get(year) + 1);
             }
-            if (!Math_Played.containsKey(year))
+            if (!matchPlayed.containsKey(year))
             {
 
-                Math_Played.put(year, 1);
+                matchPlayed.put(year, 1);
             }
         }
-        Math_Played.remove("season");
-        return Math_Played;
+        matchPlayed.remove("season");
+        return matchPlayed;
     }
     protected HashMap<String,Integer> matchWinIPL(ArrayList<HashMap<String, String>>matchesListMap)
     {

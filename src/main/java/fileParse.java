@@ -14,17 +14,17 @@ class fileParse
         FileReader fileReader = new FileReader(filename);
         CSVReader csvReader = new CSVReaderBuilder(fileReader).withSkipLines(0).build();
         List<String[]> DataRead = csvReader.readAll();
-        ArrayList<HashMap<String, String>> finallist2 = new ArrayList<>();
+        ArrayList<HashMap<String, String>> finalist2 = new ArrayList<>();
         String[] keys = DataRead.get(0);
         for (String[] row : DataRead) {
-            int keyarg = 0;
+            int keyArgument = 0;
             HashMap<String, String> hashMap = new HashMap<>();
             for (String cell : row) {
-                hashMap.put(keys[keyarg++], cell);
+                hashMap.put(keys[keyArgument++], cell);
             }
-            finallist2.add(hashMap);
+            finalist2.add(hashMap);
 
         }
-        return finallist2;
+        return finalist2;
     }
 }

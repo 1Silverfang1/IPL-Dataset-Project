@@ -3,7 +3,7 @@ import java.util.Scanner;
 class optionsSwitchCase
         {
         int choice;
-protected int optioncase()
+protected int options()
         {
         System.out.println("IPL DATASET PROJECT");
         System.out.println("Choose one of the Option Listed Below");

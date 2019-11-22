@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.*;
 class DataProject
 {
-   final String matches_csv = "/root/Downloads/Compressed/matches.csv";
-    final String delivery_csv = "/root/Downloads/Compressed/deliveries.csv";
+   final String matches_csv = "matches.csv";
+    final String delivery_csv = "deliveries.csv";
 
     public static void main(String[] args) throws IOException, CsvException {
         DataProject dataProject= new DataProject();
@@ -17,7 +17,7 @@ class DataProject
         optionsSwitchCase options_switch_case= new optionsSwitchCase();
         HashMap<String,Integer> choiceMap= new HashMap<>();
         HashMap<String,Float> choicesMap = new HashMap<>();
-        int  choice = options_switch_case.optioncase();
+        int  choice = options_switch_case.options();
         boolean val = false;
         switch (choice) {
             case 1:

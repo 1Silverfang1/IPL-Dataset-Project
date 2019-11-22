@@ -3,13 +3,10 @@ import java.io.IOException;
 import java.util.*;
 class DataProject
 {
-
-
     public static void main(String[] args){
         FileParse fileParse = new FileParse();
         Matches matches= new Matches();
-        Delivery delivery= new Delivery();
-        ConstantsValues optionsSwitchCase= new ConstantsValues();
+        DeliveryMatches deliveryMatches = new DeliveryMatches();
         ArrayList<HashMap<String, String>> deliveriesListMap = null;
         ArrayList<HashMap<String, String>> matchesListMap =null;
         try {
@@ -19,37 +16,27 @@ class DataProject
             System.out.println(ConstantsValues.FILE_ERROR);
             return;
         }
-
-
-        HashMap<String,Integer> choiceMap= new HashMap<>();
-        HashMap<String,Float> choicesMap = new HashMap<>();
-        int  choice = optionsSwitchCase.options();
-        boolean val = false;
-        switch (choice) {
-            case 1:
-                choiceMap=matches.matchPlayedPerYear(matchesListMap);
-                break;
-            case 2:
-                choiceMap=matches.matchWinIPL(matchesListMap);
-                break;
-            case 3:
-                choiceMap=delivery.extraRunConcededPerTeam(deliveriesListMap,matchesListMap);
-                break;
-            case 4:
-                choicesMap =delivery.topEconomicalBowler2015(deliveriesListMap, matchesListMap);
-                val=true;
-                break;
-            case 5:
-                choiceMap=matches.winByRunIn2016(matchesListMap);
-                break;
-            default:
-                System.out.println(ConstantsValues.WRONG_CHOICE);
-        }
-        if(!val)
-        choiceMap.forEach((k,v)->System.out.printf("\n %-30s %d",k,v));
-        else
-            choicesMap.forEach((k,v)->System.out.printf("\n %-30s %.2f",k,v));
+        Service Solvedquery[]= new Service[5];
+        Solvedquery[0]= new Service(matches.matchPlayedPerYear(matchesListMap));
+        Solvedquery[1]= new Service(matches.matchWinIPL(matchesListMap));
+        Solvedquery[2]=new Service(deliveryMatches.extraRunConcededPerTeam(deliveriesListMap,matchesListMap));
+        Solvedquery[3]= new Service(deliveryMatches.topEconomicalBowler2015(deliveriesListMap, matchesListMap));
+        Solvedquery[4]= new Service(matches.winByRunIn2016(matchesListMap));
+        System.out.println(ConstantsValues.TITLE);
+        System.out.println("\n\n");
+        System.out.println(ConstantsValues.FIRST_QUERY);
+        Solvedquery[0].serviceSolver().forEach((k,v)->System.out.printf("\n %-30s %s",k,v));
+        System.out.println("\n\n");
+        System.out.println(ConstantsValues.SECOND_QUERY);
+        Solvedquery[1].serviceSolver().forEach((k,v)->System.out.printf("\n %-30s %s",k,v));
+        System.out.println("\n\n");
+        System.out.println(ConstantsValues.THIRD_QUERY);
+        Solvedquery[2].serviceSolver().forEach((k,v)->System.out.printf("\n %-30s %s",k,v));
+        System.out.println("\n\n");
+        System.out.println(ConstantsValues.FOURTH_QUERY);
+        Solvedquery[3].serviceSolver().forEach((k,v)->System.out.printf("\n %-30s %s",k,v));
+        System.out.println("\n\n");
+        System.out.println(ConstantsValues.FIFTH_QUERY);
+        Solvedquery[4].serviceSolver().forEach((k,v)->System.out.printf("\n %-30s %s",k,v));
     }
 }
-
-//remove constants

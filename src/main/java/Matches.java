@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 class Matches
 {
-    HashMap<String,Integer> winByRunIn2016(ArrayList<HashMap<String, String>> matchesListMap) {
+    HashMap<String,String> winByRunIn2016(ArrayList<HashMap<String, String>> matchesListMap) {
         HashMap<String, Integer> winByRun = new HashMap<>();
         for(HashMap<String,String> curMatch : matchesListMap )
         {
@@ -21,9 +21,10 @@ class Matches
             }
         }
         winByRun.remove("");
-        return winByRun;
+        sortConvert sortConvert = new sortConvert();
+        return sortConvert.changeMapToString(winByRun);
     }
-    HashMap<String, Integer> matchPlayedPerYear(ArrayList<HashMap<String, String>> matchesListMap)
+    HashMap<String,String> matchPlayedPerYear(ArrayList<HashMap<String, String>> matchesListMap)
     {
 
 
@@ -41,17 +42,17 @@ class Matches
                 matchPlayed.put(year, 1);
             }
         }
-        matchPlayed.remove("season");
-        return matchPlayed;
+        matchPlayed.remove(ConstantsValues.SEASON);
+        sortConvert sortConvert = new sortConvert();
+        return sortConvert.changeMapToString(matchPlayed);
     }
-    protected HashMap<String,Integer> matchWinIPL(ArrayList<HashMap<String, String>>matchesListMap)
+    HashMap<String,String> matchWinIPL(ArrayList<HashMap<String, String>> matchesListMap)
     {
 
         HashMap<String, Integer> matchWinInIPL = new HashMap<>();
         for(HashMap<String,String> currentMatch :matchesListMap)
         {
-            String winner= currentMatch.get("winner");
-            int c = 0;
+            String winner= currentMatch.get(ConstantsValues.WINNER);
             if (matchWinInIPL.containsKey(winner))
             {
                 matchWinInIPL.replace(winner, matchWinInIPL.get(winner) + 1);
@@ -63,7 +64,8 @@ class Matches
             }
         }
         matchWinInIPL.remove("");
-        return matchWinInIPL;
+        sortConvert sortConvert = new sortConvert();
+        return sortConvert.changeMapToString(matchWinInIPL);
 
 
     }

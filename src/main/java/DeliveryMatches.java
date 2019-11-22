@@ -1,10 +1,7 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-class Delivery {
-    HashMap<String, Integer> extraRunConcededPerTeam(ArrayList<HashMap<String, String>> deliveryListMap, ArrayList<HashMap<String, String>> matchesListMap) {
+class DeliveryMatches {
+    HashMap<String, String> extraRunConcededPerTeam(ArrayList<HashMap<String, String>> deliveryListMap, ArrayList<HashMap<String, String>> matchesListMap) {
         HashMap<String, Integer> extraRunIn2016 = new HashMap<>();
         List<String> id = new ArrayList<>();
         for (HashMap<String, String> currentMatch : matchesListMap) {
@@ -29,10 +26,13 @@ class Delivery {
                 }
             }
         }
-        return extraRunIn2016;
+        sortConvert sortConvert = new sortConvert();
+       // HashMap extraRun = new HashMap<String, String>(extraRunIn2016);
+        return sortConvert.changeMapToString(extraRunIn2016);
+
     }
 
-    HashMap<String, Float> topEconomicalBowler2015(ArrayList<HashMap<String, String>> deliveryListMap, ArrayList<HashMap<String, String>> matchesListMap) {
+    HashMap<String, String> topEconomicalBowler2015(ArrayList<HashMap<String, String>> deliveryListMap, ArrayList<HashMap<String, String>> matchesListMap) {
         List<String> matchPlayedIn2015 = new ArrayList<>();
 
         for (HashMap<String, String> currentMatch : matchesListMap) {
@@ -67,7 +67,7 @@ class Delivery {
             float runs = (float) entry.getValue() / over;
             bowlerEconomicalRateMap.put(name, runs);
         }
-        MapSort mapsort = new MapSort();
-        return mapsort.sortByValue(bowlerEconomicalRateMap);
+        sortConvert mapsort = new sortConvert();
+        return mapsort.changeMapToStrings(mapsort.sortByValue(bowlerEconomicalRateMap));
     }
 }

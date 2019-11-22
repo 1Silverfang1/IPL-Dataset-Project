@@ -1,8 +1,8 @@
 import java.util.*;
 
-class mapsort
+class mapSort
 {
-    protected HashMap<String, Float> sortByValue(HashMap<String, Float> to_be_sorted) {
+    HashMap<String, Float> sortByValue(HashMap<String, Float> to_be_sorted) {
 
         ArrayList<Map.Entry<String, Float>> list = new ArrayList<>(to_be_sorted.entrySet());
         Collections.sort(list, Comparator.comparing(Map.Entry::getValue));

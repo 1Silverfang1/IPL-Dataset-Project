@@ -10,7 +10,7 @@ import java.util.List;
 
 class fileParse
 {
-    protected ArrayList<HashMap<String, String>> FileParsing(String filename) throws IOException, CsvException {
+    ArrayList<HashMap<String, String>> FileParsing(String filename) throws IOException, CsvException {
         FileReader fileReader = new FileReader(filename);
         CSVReader csvReader = new CSVReaderBuilder(fileReader).withSkipLines(0).build();
         List<String[]> DataRead = csvReader.readAll();

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 class delivery {
-    protected HashMap<String, Integer> Extra_run_conceded_per_team(ArrayList<HashMap<String, String>> Delivery_list_map, ArrayList<HashMap<String, String>> Matches_list_map) {
+    HashMap<String, Integer> Extra_run_conceded_per_team(ArrayList<HashMap<String, String>> Delivery_list_map, ArrayList<HashMap<String, String>> Matches_list_map) {
         HashMap<String, Integer> Extra_run_in_2016 = new HashMap<>();
         List<String> id = new ArrayList<>();
         for (HashMap<String, String> Cur_match : Matches_list_map) {
@@ -32,7 +32,7 @@ class delivery {
         return Extra_run_in_2016;
     }
 
-    protected HashMap<String, Float> Top_economical_bowler_2015(ArrayList<HashMap<String, String>> Delivery_list_map, ArrayList<HashMap<String, String>> Matches_list_map) {
+    HashMap<String, Float> Top_economical_bowler_2015(ArrayList<HashMap<String, String>> Delivery_list_map, ArrayList<HashMap<String, String>> Matches_list_map) {
         List<String> match_played_in_2015 = new ArrayList<>();
 
         for (HashMap<String, String> Cur_match : Matches_list_map) {
@@ -71,7 +71,7 @@ class delivery {
             r /= over;
             Bowler_economical_rate_map.put(name, r);
         }
-        mapsort mapsort = new mapsort();
+        mapSort mapsort = new mapSort();
         return mapsort.sortByValue((HashMap<String, Float>) Bowler_economical_rate_map);
     }
 }

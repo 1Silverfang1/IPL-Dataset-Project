@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.*;
 class DataProject
 {
-   final String matches_csv = "matches.csv";
-    final String delivery_csv = "deliveries.csv";
+   private final String matches_csv = "matches.csv";
+    private final String delivery_csv = "deliveries.csv";
 
     public static void main(String[] args) throws IOException, CsvException {
         DataProject dataProject= new DataProject();

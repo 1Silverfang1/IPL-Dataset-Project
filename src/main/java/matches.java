@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 class matches
 {
-    protected HashMap<String,Integer> Win_by_run_in_2016 (ArrayList<HashMap<String, String>> Matches_list_map) {
+    HashMap<String,Integer> Win_by_run_in_2016(ArrayList<HashMap<String, String>> Matches_list_map) {
         HashMap<String, Integer> win_by_run = new HashMap<>();
         for(HashMap<String,String> Cur_match : Matches_list_map )
         {
@@ -23,7 +23,7 @@ class matches
         win_by_run.remove("");
         return win_by_run;
     }
-    protected HashMap<String, Integer> Match_Played_Per_Year(ArrayList<HashMap<String, String>> Matches_list_map)
+    HashMap<String, Integer> Match_Played_Per_Year(ArrayList<HashMap<String, String>> Matches_list_map)
     {
 
 

@@ -1,9 +1,7 @@
 import java.util.Scanner;
-
 class optionsSwitchCase
         {
-        int choice;
-protected int options()
+                int options()
         {
         System.out.println("IPL DATASET PROJECT");
         System.out.println("Choose one of the Option Listed Below");
@@ -13,7 +11,7 @@ protected int options()
         System.out.println("4. For the year 2015 get the top economical bowlers.");
         System.out.println("5. For the year 2016, get the win by run per team");
         Scanner scanner = new Scanner(System.in);
-        choice = scanner.nextInt();
+        int choice = scanner.nextInt();
         return choice;
         }
 

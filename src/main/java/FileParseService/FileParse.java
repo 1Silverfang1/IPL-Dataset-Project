@@ -1,3 +1,5 @@
+package FileParseService;
+
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
@@ -8,9 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-class FileParse
+ public class FileParse
 {
-    ArrayList<HashMap<String, String>> FileParsing(String filename) throws IOException, CsvException {
+    public ArrayList<HashMap<String, String>> FileParsing(String filename) throws IOException, CsvException {
         FileReader fileReader = new FileReader(filename);
         CSVReader csvReader = new CSVReaderBuilder(fileReader).withSkipLines(0).build();
         List<String[]> DataRead = csvReader.readAll();

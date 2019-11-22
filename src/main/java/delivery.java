@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class Delivery {
+class delivery {
     protected HashMap<String, Integer> Extra_run_conceded_per_team(ArrayList<HashMap<String, String>> Delivery_list_map, ArrayList<HashMap<String, String>> Matches_list_map) {
         HashMap<String, Integer> Extra_run_in_2016 = new HashMap<>();
         List<String> id = new ArrayList<>();
@@ -71,7 +71,7 @@ class Delivery {
             r /= over;
             Bowler_economical_rate_map.put(name, r);
         }
-        Mapsort mapsort = new Mapsort();
+        mapsort mapsort = new mapsort();
         return mapsort.sortByValue((HashMap<String, Float>) Bowler_economical_rate_map);
     }
 }

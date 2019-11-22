@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-class options_switch_Case
+class optionsSwitchCase
         {
         int choice;
 protected int optioncase()

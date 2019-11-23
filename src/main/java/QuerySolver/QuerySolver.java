@@ -89,11 +89,11 @@ public class QuerySolver {
        }
        for(Delivery tempObjectMap :objectDeliveryList)
        {
-           String curId = tempObjectMap.getMatch_id();
+           String curId = tempObjectMap.getMatchId();
            if (id.contains(curId))
            {
                String bowler = tempObjectMap.getBowlingTeam();
-               String runs = tempObjectMap.getExtra_runs();
+               String runs = tempObjectMap.getExtraRuns();
                int run = Integer.parseInt(runs);
                if (extraRunIn2016.containsKey(bowler)) {
                    extraRunIn2016.replace(bowler, extraRunIn2016.get(bowler) + run);
@@ -122,10 +122,10 @@ public class QuerySolver {
         HashMap<String, Integer> bowlerAndDeliveryMap = new HashMap<>();
       for(Delivery tempObjectMap :objectDeliveryList)
       {
-          if (matchPlayedIn2015.contains(tempObjectMap.getMatch_id()))
+          if (matchPlayedIn2015.contains(tempObjectMap.getMatchId()))
           {
               String bowler = tempObjectMap.getBowler();
-              int run = Integer.parseInt(tempObjectMap.getTotal_runs());
+              int run = Integer.parseInt(tempObjectMap.getTotalRuns());
               if (bowlerAndRunMap.containsKey(bowler)) {
                   bowlerAndRunMap.replace(bowler, bowlerAndRunMap.get(bowler) + run);
                   bowlerAndDeliveryMap.replace(bowler, bowlerAndDeliveryMap.get(bowler) + 1);
@@ -138,11 +138,11 @@ public class QuerySolver {
       }
 
         List<Integer> balls = new ArrayList<>(bowlerAndDeliveryMap.values());
-        int a = 0;
+        int listIterator = 0;
         HashMap<String, Float> bowlerEconomicalRateMap = new HashMap<>();
         for (Map.Entry<String, Integer> entry : bowlerAndRunMap.entrySet()) {
             String name = entry.getKey();
-            int over = (balls.get(a++)) / OVER;
+            int over = (balls.get(listIterator++)) / OVER;
             float runs = (float) entry.getValue() / over;
             bowlerEconomicalRateMap.put(name, runs);
         }

@@ -12,8 +12,8 @@ class DataProject
        FileParse fileParse = new FileParse();
         Matches matches= new Matches();
         DeliveryMatches deliveryMatches = new DeliveryMatches();
-        ArrayList<HashMap<String, String>> deliveriesListMap = null;
-        ArrayList<HashMap<String, String>> matchesListMap =null;
+        ArrayList<HashMap<String, String>> deliveriesListMap;
+        ArrayList<HashMap<String, String>> matchesListMap;
         try {
             deliveriesListMap = fileParse.FileParsing(DELIVERIES_FILE);
             matchesListMap = fileParse.FileParsing(MATCHES_FILE);
@@ -29,6 +29,8 @@ class DataProject
         solvedQuery[4]= new Service(matches.winByRunIn2016(matchesListMap));
         System.out.println(TITLE);
         System.out.println("\n\n");
+    /*
+        if you want a separate formatting for each object values.
         System.out.println(FIRST_QUERY);
         solvedQuery[0].serviceSolver().forEach((k,v)->System.out.printf("\n %-30s %s",k,v));
         System.out.println("\n\n");
@@ -43,6 +45,12 @@ class DataProject
         System.out.println("\n\n");
         System.out.println(FIFTH_QUERY);
         solvedQuery[4].serviceSolver().forEach((k,v)->System.out.printf("\n %-30s %s",k,v));
+        */
+        for(Service querySolver:solvedQuery)
+        {
+            querySolver.serviceSolver().forEach((k,v)->System.out.printf("\n %-30s %s",k,v));
+            System.out.println("\n\n");
+        }
 
     }
 }

@@ -8,7 +8,6 @@ import java.util.HashMap;
     {
         solvedMap=objectMap;
     }
-
     public HashMap<String,String> serviceSolver()
     {
         return solvedMap;

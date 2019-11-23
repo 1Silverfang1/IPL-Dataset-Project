@@ -1,9 +1,9 @@
 package QuerySolver;
 
 import java.util.*;
-public class SortConvert
+class SortConvert
 {
-    public HashMap<String, Float> sortByValue(HashMap<String, Float> toBeSorted) {
+    HashMap<String, Float> sortByValue(HashMap<String, Float> toBeSorted) {
 
         ArrayList<Map.Entry<String, Float>> listOfMap = new ArrayList<>(toBeSorted.entrySet());
         Collections.sort(listOfMap, Comparator.comparing(Map.Entry::getValue));
@@ -13,7 +13,7 @@ public class SortConvert
         }
         return tempMap;
     }
-    public HashMap<String,String> changeMapToStrings(HashMap<String,Float>stringIntegerHashMap)
+    HashMap<String,String> changeMapToStrings(HashMap<String, Float> stringIntegerHashMap)
     {
         HashMap<String,String> stringStringHashMap = new LinkedHashMap<>();
         for (Map.Entry<String,Float> entry : stringIntegerHashMap.entrySet())
@@ -22,7 +22,7 @@ public class SortConvert
         }
         return stringStringHashMap;
     }
-    public HashMap<String,String> changeMapToString(HashMap<String,Integer>stringIntegerHashMap)
+    HashMap<String,String> changeMapToString(HashMap<String, Integer> stringIntegerHashMap)
     {
         HashMap<String,String> stringStringHashMap = new HashMap<>();
         for (Map.Entry<String,Integer> entry : stringIntegerHashMap.entrySet())

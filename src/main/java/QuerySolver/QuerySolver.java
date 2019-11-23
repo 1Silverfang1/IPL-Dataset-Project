@@ -92,7 +92,7 @@ public class QuerySolver {
            String curId = tempObjectMap.getMatch_id();
            if (id.contains(curId))
            {
-               String bowler = tempObjectMap.getBowling_team();
+               String bowler = tempObjectMap.getBowlingTeam();
                String runs = tempObjectMap.getExtra_runs();
                int run = Integer.parseInt(runs);
                if (extraRunIn2016.containsKey(bowler)) {
